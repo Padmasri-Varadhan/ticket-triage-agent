@@ -6,6 +6,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
+const apiKey = process.env.OPENAI_API_KEY;
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
