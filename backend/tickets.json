@@ -1,0 +1,172 @@
+[
+  {
+    "id": "1",
+    "title": "Payment failed twice for my subscription",
+    "description": "I was charged twice for the monthly plan. Both transactions went through but my account still says payment failed. Please fix this immediately, I'm very frustrated.",
+    "userEmail": "customer@example.com",
+    "category": "Billing",
+    "priority": "High",
+    "sentiment": "Angry",
+    "confidence": 98,
+    "assignedTeam": "Finance Team",
+    "explanation": {
+      "category": "Detected keywords related to financial transactions: payment, charge, subscription, payment failed.",
+      "priority": "Priority elevated due to urgent keywords: immediately. Also triggered by angry sentiment.",
+      "sentiment": "Strong negative sentiment detected through words like: frustrated, immediately.",
+      "keywords": [
+        "payment",
+        "charge",
+        "subscription",
+        "payment failed",
+        "frustrated",
+        "immediately"
+      ]
+    },
+    "status": "Open",
+    "createdAt": "2026-03-24T10:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "title": "API Login endpoint returning 500 error",
+    "description": "We are seeing intermittent 500 Internal Server Errors when calling the /auth/login endpoint from our mobile app. Seems like a bug in the recent deployment.",
+    "userEmail": "dev@partner.com",
+    "category": "Technical",
+    "priority": "Medium",
+    "sentiment": "Neutral",
+    "confidence": 92,
+    "assignedTeam": "Engineering Team",
+    "explanation": {
+      "category": "Detected technical issues or error indicators: error, login, api.",
+      "priority": "Standard priority for functional issues.",
+      "sentiment": "No negative indicators found; tone appears professional.",
+      "keywords": [
+        "error",
+        "login",
+        "api"
+      ]
+    },
+    "status": "Open",
+    "createdAt": "2026-03-24T12:00:00.000Z"
+  },
+  {
+    "id": "3",
+    "title": "Suggestion: Add Dark Mode to the Dashboard",
+    "description": "It would be great if we could have a dark mode option. The current white interface is a bit bright at night. This would really improve the experience.",
+    "userEmail": "user123@gmail.com",
+    "category": "Feature Request",
+    "priority": "Low",
+    "sentiment": "Happy",
+    "confidence": 89,
+    "assignedTeam": "Product Team",
+    "explanation": {
+      "category": "Content suggests a request for new functionality: suggest, improve.",
+      "priority": "Assigned low priority as no urgent indicators were detected.",
+      "sentiment": "No negative indicators found; tone appears positive.",
+      "keywords": [
+        "suggest",
+        "improve"
+      ]
+    },
+    "status": "Open",
+    "createdAt": "2026-03-25T09:00:00.000Z"
+  },
+  {
+    "id": "1775311677951",
+    "title": "Hot reload is not functioning",
+    "description": "waesxdrcgvynijkmo",
+    "userEmail": "padmasrisvt@gmail.com",
+    "category": "General",
+    "priority": "Low",
+    "sentiment": "Happy",
+    "confidence": 96,
+    "assignedTeam": "Customer Support",
+    "explanation": {
+      "category": "Defaulted to general as no specific domain keywords were dominant.",
+      "priority": "Assigned low priority as no urgent indicators were detected.",
+      "sentiment": "No negative indicators found; tone appears professional or positive.",
+      "keywords": []
+    },
+    "status": "Open",
+    "createdAt": "2026-04-04T14:07:57.952Z"
+  },
+  {
+    "id": "1775311761203",
+    "title": "Hotreload is not functioning",
+    "description": "Whenever I login, its like I need to refresh or update manually.",
+    "userEmail": "padmasrisvt@gmail.com",
+    "category": "Technical",
+    "priority": "Medium",
+    "sentiment": "Happy",
+    "confidence": 88,
+    "assignedTeam": "Engineering Team",
+    "explanation": {
+      "category": "Detected technical issues or error indicators: login.",
+      "priority": "Standard priority for functional issues.",
+      "sentiment": "No negative indicators found; tone appears professional or positive.",
+      "keywords": [
+        "login"
+      ]
+    },
+    "status": "Open",
+    "createdAt": "2026-04-04T14:09:21.203Z"
+  },
+  {
+    "id": "1775311908410",
+    "title": "fgfchgvjbkn",
+    "description": "zsexdfcghbjnkml,exdrcvgyhbunijmko,lzesxdrcfghbjnkml,;",
+    "userEmail": "padmasrisvt@gmail.com",
+    "category": "General",
+    "priority": "Low",
+    "sentiment": "Happy",
+    "confidence": 96,
+    "assignedTeam": "Customer Support",
+    "explanation": {
+      "category": "Defaulted to general as no specific domain keywords were dominant.",
+      "priority": "Assigned low priority as no urgent indicators were detected.",
+      "sentiment": "No negative indicators found; tone appears professional or positive.",
+      "keywords": []
+    },
+    "status": "Open",
+    "createdAt": "2026-04-04T14:11:48.411Z"
+  },
+  {
+    "id": "1775312164688",
+    "title": "Monthly 2 times for the same plan I paid",
+    "description": "For the same plan I paid twice in a month which was due to some technical errors",
+    "userEmail": "padmasrisvt@gmail.com",
+    "category": "Technical",
+    "priority": "Medium",
+    "sentiment": "Happy",
+    "confidence": 89,
+    "assignedTeam": "Engineering Team",
+    "explanation": {
+      "category": "Detected technical issues or error indicators: error.",
+      "priority": "Standard priority for functional issues.",
+      "sentiment": "No negative indicators found; tone appears professional or positive.",
+      "keywords": [
+        "error"
+      ]
+    },
+    "status": "Open",
+    "createdAt": "2026-04-04T14:16:04.688Z"
+  },
+  {
+    "id": "1775313200104",
+    "title": "esrdtfygvhbuinj",
+    "description": "awesdrftgybhunjkm",
+    "userEmail": "rdtfyguhijko@gmail.com",
+    "category": "General",
+    "priority": "Low",
+    "sentiment": "Happy",
+    "confidence": 98,
+    "assignedTeam": "Customer Support",
+    "explanation": {
+      "category": "Defaulted to general as no specific domain keywords were dominant.",
+      "priority": "Assigned low priority as no urgent indicators were detected.",
+      "sentiment": "No negative indicators found; tone appears professional or positive.",
+      "keywords": []
+    },
+    "status": "Open",
+    "createdAt": "2026-04-04T14:33:20.104Z"
+  }
+]
