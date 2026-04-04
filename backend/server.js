@@ -124,6 +124,9 @@ app.get('/api/tickets', (req, res) => {
   const tickets = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
   res.json(tickets);
 });
+app.get("/", (req, res) => {
+  res.send("Ticket Triage Backend is running 🚀");
+});
 
 app.patch('/api/tickets/:id', (req, res) => {
   const { id } = req.params;
