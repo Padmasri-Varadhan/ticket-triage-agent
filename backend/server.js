@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
+const apiKey = process.env.OPENAI_API_KEY;
 const app = express();
 const apiKey = process.env.OPENAI_API_KEY;
 const PORT = process.env.PORT || 5000;
@@ -18,7 +19,7 @@ const DB_FILE = path.join(__dirname, 'tickets.json');
 // Mock AI Engine for Explainable AI
 const analyzeTicketAI = (title, description) => {
   const text = (title + " " + description).toLowerCase();
-  
+
   const rules = {
     billing: ["bill", "payment", "charge", "subscription", "price", "refund", "invoice", "double charged", "payment failed"],
     technical: ["bug", "error", "broken", "login", "failed", "crash", "not working", "slow", "api", "integration"],
@@ -81,7 +82,7 @@ const analyzeTicketAI = (title, description) => {
   const urgentCount = rules.urgent.filter(k => text.includes(k)).length;
   if (urgentCount > 0 || analysis.sentiment === "Angry") {
     analysis.priority = "High";
-    analysis.explanation.priority = urgentCount > 0 
+    analysis.explanation.priority = urgentCount > 0
       ? `Priority elevated due to urgent keywords: ${rules.urgent.filter(k => text.includes(k)).join(", ")}.`
       : "Priority elevated due to detected customer frustration.";
     analysis.explanation.keywords.push(...rules.urgent.filter(k => text.includes(k)));
@@ -96,13 +97,13 @@ const analyzeTicketAI = (title, description) => {
 // Routes
 app.post('/api/tickets', (req, res) => {
   const { title, description, userEmail } = req.body;
-  
+
   if (!title || !description || !userEmail) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
   const analysis = analyzeTicketAI(title, description);
-  
+
   const newTicket = {
     id: Date.now().toString(),
     title,
@@ -131,15 +132,15 @@ app.get("/", (req, res) => {
 app.patch('/api/tickets/:id', (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  
+
   const tickets = JSON.parse(fs.readFileSync(DB_FILE, 'utf8'));
   const ticketIndex = tickets.findIndex(t => t.id === id);
-  
+
   if (ticketIndex === -1) return res.status(404).json({ error: "Ticket not found" });
-  
+
   tickets[ticketIndex].status = status;
   fs.writeFileSync(DB_FILE, JSON.stringify(tickets, null, 2));
-  
+
   res.json(tickets[ticketIndex]);
 });
 
