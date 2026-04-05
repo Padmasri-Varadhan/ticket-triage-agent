@@ -9,23 +9,37 @@ const TicketForm = ({ onTicketSubmitted }) => {
         description: '',
         userEmail: ''
     });
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+
         try {
-            const response = await axios.post("https://ticket-triage-agent-t86f.onrender.com/tickets", data)
+            const response = await axios.post(
+                "https://ticket-triage-agent-t86f.onrender.com/api/tickets", // ✅ FIXED URL
+                formData // ✅ FIXED variable
+            );
+
+            console.log("Success:", response.data);
+
             setIsSuccess(true);
+
             setTimeout(() => {
                 setIsSuccess(false);
                 setFormData({ title: '', description: '', userEmail: '' });
-                onTicketSubmitted(response.data);
+
+                // update dashboard
+                if (onTicketSubmitted) {
+                    onTicketSubmitted(response.data);
+                }
             }, 2000);
+
         } catch (error) {
-            console.error('Error submitting ticket:', error);
-            alert('Failed to submit ticket. Please try again.');
+            console.error("Submission error:", error.response?.data || error.message);
+            alert("Failed to submit ticket. Please try again.");
         } finally {
             setIsSubmitting(false);
         }
@@ -37,7 +51,9 @@ const TicketForm = ({ onTicketSubmitted }) => {
             animate={{ opacity: 1, y: 0 }}
             className="ticket-form card"
         >
-            <h2 style={{ marginBottom: '1.5rem', fontFamily: 'Outfit, sans-serif' }}>Submit Support Ticket</h2>
+            <h2 style={{ marginBottom: '1.5rem', fontFamily: 'Outfit, sans-serif' }}>
+                Submit Support Ticket
+            </h2>
 
             <AnimatePresence mode="wait">
                 {isSuccess ? (
@@ -50,7 +66,9 @@ const TicketForm = ({ onTicketSubmitted }) => {
                     >
                         <CheckCircle2 color="#10b981" size={64} style={{ marginBottom: '1rem' }} />
                         <h3 style={{ color: '#10b981' }}>Ticket Submitted!</h3>
-                        <p style={{ color: 'var(--text-secondary)' }}>Our AI is triaging your request...</p>
+                        <p style={{ color: 'var(--text-secondary)' }}>
+                            Our AI is triaging your request...
+                        </p>
                     </motion.div>
                 ) : (
                     <form key="form" onSubmit={handleSubmit}>
@@ -62,7 +80,9 @@ const TicketForm = ({ onTicketSubmitted }) => {
                                 required
                                 placeholder="alex@company.com"
                                 value={formData.userEmail}
-                                onChange={(e) => setFormData({ ...formData, userEmail: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({ ...formData, userEmail: e.target.value })
+                                }
                             />
                         </div>
 
@@ -74,7 +94,9 @@ const TicketForm = ({ onTicketSubmitted }) => {
                                 required
                                 placeholder="Brief summary of the issue"
                                 value={formData.title}
-                                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({ ...formData, title: e.target.value })
+                                }
                             />
                         </div>
 
@@ -86,15 +108,26 @@ const TicketForm = ({ onTicketSubmitted }) => {
                                 required
                                 placeholder="Please describe your issue in detail..."
                                 value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                onChange={(e) =>
+                                    setFormData({ ...formData, description: e.target.value })
+                                }
                             ></textarea>
                         </div>
 
-                        <button type="submit" className="btn" disabled={isSubmitting} style={{ width: '100%' }}>
+                        <button
+                            type="submit"
+                            className="btn"
+                            disabled={isSubmitting}
+                            style={{ width: '100%' }}
+                        >
                             {isSubmitting ? (
-                                <> <Loader2 className="animate-spin" size={20} /> Processing... </>
+                                <>
+                                    <Loader2 className="animate-spin" size={20} /> Processing...
+                                </>
                             ) : (
-                                <> <Send size={20} /> Submit Ticket </>
+                                <>
+                                    <Send size={20} /> Submit Ticket
+                                </>
                             )}
                         </button>
                     </form>

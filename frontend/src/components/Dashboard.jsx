@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TicketCard from './TicketCard';
-import { Filter, Loader2, ArrowRight, Cpu, Brain, CheckCircle } from 'lucide-react';
+import { Loader2, ArrowRight, Cpu, Brain, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+
+const API_URL = "https://ticket-triage-agent-t86f.onrender.com/api/tickets";
 
 const WorkflowDiagram = () => (
     <div className="workflow-container">
@@ -49,41 +51,35 @@ const Dashboard = () => {
 
     const fetchTickets = async () => {
         try {
-            const response = await axios.get('https://ticket-triage-agent-t86f.onrender.com/tickets');
+            const response = await axios.get(API_URL);
 
             console.log("API Response:", response.data);
 
-            // ✅ Ensure tickets is always an array
             const data = Array.isArray(response.data)
                 ? response.data
-                : Array.isArray(response.data.tickets)
-                    ? response.data.tickets
-                    : [];
+                : response.data?.tickets || [];
 
             setTickets(data);
 
         } catch (error) {
-            console.error('Error fetching tickets:', error);
-            setTickets([]); // fallback
+            console.error("Fetch error:", error.response?.data || error.message);
+            setTickets([]);
         } finally {
             setLoading(false);
         }
     };
 
-    // ✅ Safe filtering
     const filteredTickets = (Array.isArray(tickets) ? tickets : [])
-        .filter(ticket => {
-            return (
-                (filters.category === 'All' || ticket.category === filters.category) &&
-                (filters.priority === 'All' || ticket.priority === filters.priority)
-            );
-        })
+        .filter(ticket =>
+            (filters.category === 'All' || ticket.category === filters.category) &&
+            (filters.priority === 'All' || ticket.priority === filters.priority)
+        )
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return (
         <div className="dashboard">
             <div style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontFamily: 'Outfit, sans-serif', marginBottom: '0.5rem' }}>
+                <h2 style={{ fontSize: '1.5rem', fontFamily: 'Outfit, sans-serif' }}>
                     AI Triage Pipeline
                 </h2>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
@@ -92,44 +88,38 @@ const Dashboard = () => {
                 <WorkflowDiagram />
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <div style={{ display: 'flex', gap: '1rem' }}>
-                    <div className="input-group" style={{ marginBottom: 0 }}>
-                        <label style={{ fontSize: '0.75rem' }}>Category</label>
-                        <select
-                            value={filters.category}
-                            onChange={(e) => setFilters({ ...filters, category: e.target.value })}
-                        >
-                            <option>All</option>
-                            <option>Billing</option>
-                            <option>Technical</option>
-                            <option>Feature Request</option>
-                            <option>General</option>
-                        </select>
-                    </div>
+                    <select
+                        value={filters.category}
+                        onChange={(e) => setFilters({ ...filters, category: e.target.value })}
+                    >
+                        <option>All</option>
+                        <option>Billing</option>
+                        <option>Technical</option>
+                        <option>Feature Request</option>
+                        <option>General</option>
+                    </select>
 
-                    <div className="input-group" style={{ marginBottom: 0 }}>
-                        <label style={{ fontSize: '0.75rem' }}>Priority</label>
-                        <select
-                            value={filters.priority}
-                            onChange={(e) => setFilters({ ...filters, priority: e.target.value })}
-                        >
-                            <option>All</option>
-                            <option>High</option>
-                            <option>Medium</option>
-                            <option>Low</option>
-                        </select>
-                    </div>
+                    <select
+                        value={filters.priority}
+                        onChange={(e) => setFilters({ ...filters, priority: e.target.value })}
+                    >
+                        <option>All</option>
+                        <option>High</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                    </select>
                 </div>
 
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                    Showing <strong>{filteredTickets.length}</strong> of {tickets.length} tickets
+                <div style={{ fontSize: '0.8rem' }}>
+                    Showing <strong>{filteredTickets.length}</strong> of {tickets.length}
                 </div>
             </div>
 
             {loading ? (
                 <div style={{ textAlign: 'center', padding: '4rem' }}>
-                    <Loader2 className="animate-spin" size={48} color="var(--primary)" />
+                    <Loader2 className="animate-spin" size={48} />
                 </div>
             ) : (
                 <motion.div layout className="ticket-grid">
@@ -138,10 +128,8 @@ const Dashboard = () => {
                     ))}
 
                     {filteredTickets.length === 0 && (
-                        <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '4rem' }}>
-                            <p style={{ color: 'var(--text-secondary)' }}>
-                                No tickets match your filters.
-                            </p>
+                        <div style={{ textAlign: 'center', padding: '3rem' }}>
+                            No tickets found.
                         </div>
                     )}
                 </motion.div>
