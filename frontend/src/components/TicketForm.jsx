@@ -16,7 +16,7 @@ const TicketForm = ({ onTicketSubmitted }) => {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const response = await axios.post('/api/tickets', formData);
+            const response = await axios.post('https://ticket-triage-agent-t86f.onrender.com', formData);
             setIsSuccess(true);
             setTimeout(() => {
                 setIsSuccess(false);

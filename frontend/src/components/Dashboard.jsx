@@ -48,7 +48,7 @@ const Dashboard = () => {
 
     const fetchTickets = async () => {
         try {
-            const response = await axios.get('/api/tickets');
+            const response = await axios.get('https://ticket-triage-agent-t86f.onrender.com/');
             setTickets(response.data);
         } catch (error) {
             console.error('Error fetching tickets:', error);
