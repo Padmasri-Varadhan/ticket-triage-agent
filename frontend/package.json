@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-  "start": "react-scripts start",
-  "build": "react-scripts build"
+    "dev": "react",
+    "start": "react-scripts start",
+    "build": "react-scripts build"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^6.0.1",
